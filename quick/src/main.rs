@@ -12,3 +12,14 @@ fn f002_math_power() {
     // but we cannot just do 2.pow(2), because type is ambiguous
     // hence, compiler can't understand which pow() it should use.
 }
+
+#[test]
+fn f003_for_loop() {
+    let mut j: i32 = 0;
+    for i in 0..10 {
+        if i == 9 {
+            j = 1;
+        }
+    }
+    assert!(1 == j);
+}
