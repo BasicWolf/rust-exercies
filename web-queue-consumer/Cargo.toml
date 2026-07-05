@@ -1,0 +1,15 @@
+[package]
+name = "web-queue-consumer"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+# web server
+axum = "0.8.6"
+# serialise / deserialise
+serde = { version = "1.0.228", features = ["derive"] }
+# async runtime for axum
+tokio = { version = "1.48.0", features = ["macros", "rt-multi-thread"] }
+# axum middlewares
+tower = "0.5.2"
+tower-http = { version = "0.6.7", features = ["cors"]}
