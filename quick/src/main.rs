@@ -1,3 +1,8 @@
+use orderable_person::OrderablePerson;
+
+mod insertion_sort;
+mod orderable_person;
+
 fn main() {}
 
 #[test]
@@ -22,4 +27,61 @@ fn f003_for_loop() {
         }
     }
     assert!(1 == j);
+
+    for i in (0..=10).rev() {
+        if i == 10 {
+            j = 2;
+        }
+    }
+    assert!(2 == j);
+}
+
+#[test]
+fn f004_insertion_sort_vector_of_integers() {
+    let mut input_vec = vec![3, 2, 1, 4, 6, 5, 7, 9, 8];
+    let v: &mut Vec<i32> = &mut input_vec;
+    for i in 1..v.len() {
+        if v[i] < v[i - 1] {
+            for j in (1..=i).rev() {
+                if v[j] < v[j - 1] {
+                    println!("Swapping v_{} = {}, v_{} = {}", j, v[j], j - 1, v[j - 1]);
+                    let vj = v[j];
+                    v[j] = v[j - 1];
+                    v[j - 1] = vj;
+                }
+            }
+        }
+    }
+
+    assert_eq!(*v, vec![1, 2, 3, 4, 5, 6, 7, 8, 9]);
+}
+
+#[test]
+fn f005_sort_with_ord() {
+    let mut persons = vec![
+        OrderablePerson {
+            name: "Alex".to_string(),
+            age: 30,
+        },
+        OrderablePerson {
+            name: "Bart".to_string(),
+            age: 28,
+        },
+        OrderablePerson {
+            name: "Cal".to_string(),
+            age: 29,
+        },
+    ];
+
+    persons.sort();
+
+    let sorted_ages: Vec<u8> = persons.iter().map(|p| p.age).collect();
+    assert_eq!(vec![28, 29, 30], sorted_ages);
+}
+
+#[test]
+fn f006_custom_generic_sort_function() {
+    let mut v = vec![9, 8, 7, 1, 3, 2];
+    insertion_sort::insertion_sort(&mut v);
+    println!("v is {:?}", v);
 }
